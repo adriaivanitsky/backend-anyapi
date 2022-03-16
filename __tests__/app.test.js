@@ -11,4 +11,10 @@ describe('backend-anyapi routes', () => {
   afterAll(() => {
     pool.end();
   });
+  test('should read the table', async () => {
+    const expected = {};
+    const response = await request(app).get('/api/v1/rocks');
+
+    expect(response.body).toEqual(expected);
+  });
 });
