@@ -12,11 +12,7 @@ describe('backend-anyapi routes', () => {
     pool.end();
   });
   test('should read the table', async () => {
-    // const expected = {
-    //   name: 'flourite',
-    //   crystal_system: 'isometric',
-    //   hardness: 4,
-    // };
+    
     const expected = [
       { id: '1', name: 'pyrite', crystal_system: 'cubic', hardness: '6' },
       {
@@ -31,4 +27,15 @@ describe('backend-anyapi routes', () => {
 
     expect(response.body).toEqual(expected);
   });
+
+  test('should create a table row', async () => {
+    const expected = {
+      name: 'flourite',
+      crystal_system: 'isometric',
+      hardness: '4',
+    };
+    const response = await request(app).post('/api/v1/rocks').send(expected);
+
+    expect(response.body).toEqual({ id: expect.any(String), ...expected});
+  })
 });
