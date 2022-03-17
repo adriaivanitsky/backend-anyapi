@@ -44,4 +44,11 @@ describe('backend-anyapi routes', () => {
   const response = await request(app).get('/api/v1/rocks/3');
   expect(response.body).toEqual(expected);
   })
+
+  test('should update specific row corresponding to its individual id', async () => {
+    const expected = { id: '3', name: 'amethyst', crystal_system: 'trigonal', hardness: '6' }
+    const response = await request(app).patch('/api/v1/rocks/3').send({ hardness: '6' });
+    expect(response.body).toEqual(expected);
+  
+  })
 });
