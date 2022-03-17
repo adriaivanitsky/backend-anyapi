@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const Rock = require('../lib/models/Rock');
 
 describe('backend-anyapi routes', () => {
   beforeEach(() => {
@@ -50,5 +51,11 @@ describe('backend-anyapi routes', () => {
     const response = await request(app).patch('/api/v1/rocks/3').send({ hardness: '6' });
     expect(response.body).toEqual(expected);
   
+  })
+
+  test('should delete a rock by its id', async () => {
+    const expected = await Rock.findById(1);
+    const response = await request(app).delete(`/api/v1/rocks/${expected.id}`);
+    expect(response.body).toEqual(expected);
   })
 });
